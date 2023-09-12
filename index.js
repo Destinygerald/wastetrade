@@ -270,7 +270,7 @@ app.get("/receipt/:id", async(req, res) => {
 	try {
 	 const payment_id = await payment.findOne({_id: id});
 	 if (payment_id) {
-	 	res.render()//success page
+	 	res.render("https://wastetradepay.onrender.com")//success page
 	 }
 	} catch (err) {
 		return res.json({
@@ -280,7 +280,7 @@ app.get("/receipt/:id", async(req, res) => {
 })
 
 app.get("/error", (req, res) => {
-	res.render()//error page
+	res.render("https://wastetradeerror.onrender.com")//error page
 })
 
 
@@ -409,11 +409,11 @@ app.get('/verify/:userId/:uinqueString', async(req, res) => {
 				try{	
 					const deleteAccount = await User.deleteOne({ _id: userId });
 					let message = `Link has expired. Please sign up again`;
-					res.redirect(`/verified/error=true/message=${message}`)
+					res.redirect(`/verified/?error=true/message=${message}`)
 				} catch (err) {
 					console.log(`deleteAccount error ${err}`)
 					let message = `Clearing user with expired unique string failed`;
-					res.redirect(`/verified/error=true/message=${message}`)
+					res.redirect(`/verified/?error=true/message=${message}`)
 				}
 			} else {
 					try{
@@ -424,34 +424,34 @@ app.get('/verify/:userId/:uinqueString', async(req, res) => {
 							try{					
 								await User.updateOne({ _id: userId }, { verified: true });
 								await UserVerification.deleteOne({ userId })
-								res.sendFile(path.join(__dirname, "./views/verified.html"))
+								res.render("https://wastetradesuccess.onrender.com")
 							} catch (err) {
 								console.log("Update error:", err);
 								
 								let message = `An error occurred while updating verification status`
-								res.redirect(`/verified/error=true&message=${message}`)
+								res.redirect(`/verified/?error=true&message=${message}`)
 							}
 						
 						} else {
 							let message = `Invalid verification details`
-							res.redirect(`/verified/error=true&message=${message}`)
+							res.redirect(`/verified/?error=true&message=${message}`)
 						}
 
 					} catch (err) {
 						console.log("unique string comparison error")
 						let message = `An error occurred while comparing uinque strings`
-						res.redirect(`/verified/error=true&message=${message}`)
+						res.redirect(`/verified/?error=true&message=${message}`)
 					}
 			}
 		} else {
 			let message = `Account record doesnt exist or has been verified already. Please sign up or log in`;
-			res.redirect(`/verified/error=true&message=${message}`)
+			res.redirect(`/verified/?error=true&message=${message}`)
 		}
 	
 	} catch (err) {
 		console.log("idToVerify error: ", err);
 		let message = `An error occurred while checking for exist`
-		res.redirect(`/verified/error=true&message=${message}`)
+		res.redirect(`/verified/?error=true&message=${message}`)
 	}
 
 })
@@ -459,7 +459,9 @@ app.get('/verify/:userId/:uinqueString', async(req, res) => {
 
 
 app.get('/verified', (req, res) => {
-	res.redirect("https://wastetradesuccess.onrender.com")
+	const {error, message} = req.query;
+	if ( error == "false" ) return;
+	res.render("https://wastetradeerror.onrender.com")
 })
 
 
