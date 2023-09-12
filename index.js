@@ -459,7 +459,7 @@ app.get('/verify/:userId/:uinqueString', async(req, res) => {
 
 
 app.get('/verified', (req, res) => {
-	res.sendFile(path.join(__dirname, "./views/verified.html"))
+	res.redirect("https://wastetradesuccess.onrender.com")
 })
 
 
