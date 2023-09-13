@@ -363,7 +363,7 @@ app.post('/register', async(req, res) => {
 
 		const adminExist = await User.find({userType: "admin"})
 
-		if (adminExist) {
+		if ( userType == "admin" ) {
 			return res.json({
 				error: "User type should be agent or student"
 			})
