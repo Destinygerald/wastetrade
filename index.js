@@ -270,7 +270,7 @@ app.get("/receipt/:id", async(req, res) => {
 	try {
 	 const payment_id = await payment.findOne({_id: id});
 	 if (payment_id) {
-	 	res.render("https://wastetradepay.onrender.com")//success page
+	 	res.redirect("https://wastetradepay.onrender.com")//success page
 	 }
 	} catch (err) {
 		return res.json({
@@ -280,7 +280,7 @@ app.get("/receipt/:id", async(req, res) => {
 })
 
 app.get("/error", (req, res) => {
-	res.render("https://wastetradeerror.onrender.com")//error page
+	res.redirect("https://wastetradeerror.onrender.com")//error page
 })
 
 
@@ -468,7 +468,7 @@ app.get('/verify/:userId/:uinqueString', async(req, res) => {
 app.get('/verified', (req, res) => {
 	const {error, message} = req.query;
 	if ( error == "false" ) return;
-	res.render("https://wastetradeerror.onrender.com")
+	res.redirect("https://wastetradeerror.onrender.com")
 })
 
 
