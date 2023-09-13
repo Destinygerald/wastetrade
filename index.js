@@ -431,7 +431,7 @@ app.get('/verify/:userId/:uinqueString', async(req, res) => {
 							try{					
 								await User.updateOne({ _id: userId }, { verified: true });
 								await UserVerification.deleteOne({ userId })
-								res.render("https://wastetradesuccess.onrender.com")
+								res.redirect("https://wastetradesuccess.onrender.com")
 							} catch (err) {
 								console.log("Update error:", err);
 								
