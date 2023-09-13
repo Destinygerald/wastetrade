@@ -45,7 +45,7 @@ const comparePassword = async (password, hashedPassword) => {
 
 const sendVerificationEmail = async({_id, email}, res) => {
 	// application url
-	const currentUrl = "http://localhost:8000/";
+	const currentUrl = "https://wastetrade.onrender.com/";
 
 	const uniqueString = uuidv4() + _id;
 
