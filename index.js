@@ -363,7 +363,11 @@ app.post('/register', async(req, res) => {
 
 		const adminExist = await User.find({userType: "admin"})
 
-		// console.log(adminExist)
+		if (adminExist) {
+			return res.json({
+				error: "User type should be agent or student"
+			})
+		}
 
 		//hash password
 		const hashedPassword = await hashPassword(password);
@@ -380,6 +384,9 @@ app.post('/register', async(req, res) => {
 			sessionId: uuid.v4()
 		}).then((result) => {
 			sendVerificationEmail(result);
+			res.json({
+				success: "Email sent"
+			})
 		})
 
 
